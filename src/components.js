@@ -1,3 +1,7 @@
+//store the player's score
+var TotalScore = 0;
+var LevelScore = 0;
+
 // The Grid component allows an element to be located
 //  on a grid of tiles
 Crafty.c('Grid', {
@@ -53,6 +57,22 @@ Crafty.c('Bush', {
 });
 
 
+Crafty.c('Prize', {
+	init: function() {
+		this.requires('Actor, Color');
+		this.color('rgb(171, 125, 40)');
+	},
+
+	collect: function() {
+		//add a score
+		TotalScore = TotalScore +1;
+		LevelScore = LevelScore +1;
+		this.destroy();
+	}
+
+});
+
+
 
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
@@ -60,7 +80,10 @@ Crafty.c('PlayerCharacter', {
 		this.requires('Actor, Fourway, Color, Collision')
 			.fourway(4)
 			.color('rgb(20, 75, 40)')
-			.stopOnSolids();
+			.stopOnSolids()
+			//add method for when touching a prize
+			.onHit('Prize', this.touchPrize)
+			;
 	}, //add the comma, we're adding more
 	
 	  // Registers a stop-movement function to be called when
@@ -77,7 +100,12 @@ Crafty.c('PlayerCharacter', {
 			this.x -= this._movement.x;
 			this.y -= this._movement.y;
 		}// end of if
-	}
+	},
 	
-	
+ // Respond to this touching the prize
+	touchPrize: function(data) {
+		Prize = data[0].obj;
+		Prize.collect();
+	},
 });
+	

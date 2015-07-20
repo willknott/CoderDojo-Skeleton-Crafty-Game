@@ -1,8 +1,8 @@
 Game = {
   // This defines our grid's size and the size of each of its tiles
 	map_grid: {
-		width:  50,
-		height: 40,
+		width:  40,
+		height: 30,
 		tile: {
 			width:  16,
 			height: 16
@@ -29,7 +29,7 @@ Game = {
 	
     // Player character, placed at 5, 5 on our grid
     Crafty.e('PlayerCharacter').at(5, 5);
-	
+	Crafty.e('Prize').at(10,10);
 	
 	// Place a tree at every edge square on our grid of 16x16 tiles
 	//starting for loop 1
