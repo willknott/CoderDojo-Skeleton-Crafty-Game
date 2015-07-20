@@ -28,16 +28,26 @@ Crafty.c('Grid', {
 
 }); //end of Crafty c Grid component call
 
+
+// An "Actor" is an entity that is drawn in 2D on canvas
+//  via our logical coordinate grid
+Crafty.c('Actor', {
+  init: function() {
+    this.requires('2D, Canvas, Grid');
+  },
+});
+ 
+ 
 Crafty.c('Tree', {
 	init: function() {
-		this.requires('2D, Canvas, Grid, Color');
+		this.requires('Actor, Color');
 		this.color('rgb(20, 125, 40)');
 	},
 });
  
 Crafty.c('Bush', {
 	init: function() {
-		this.requires('2D, Canvas, Grid, Color');
+		this.requires('Actor, Color');
 		this.color('rgb(20, 185, 40)');
 	},
 });
