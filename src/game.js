@@ -1,6 +1,7 @@
 //setup global variables
 var Level=1;
 var max_prize = 8;
+var Clone=0;
 
 Game = {
   // This defines our grid's size and the size of each of its tiles
@@ -39,6 +40,7 @@ Game = {
   // Initialize and start our game
 	level: function() {
 	Crafty.background('rgb(249, 223, 125)');
+	Clones = Level-1;
 	
 	// Place a tree at every edge square on our grid of 16x16 tiles
 	//starting for loop 1
@@ -60,11 +62,20 @@ Game = {
           // Place a tree(eventually) entity at the current tile
 				Crafty.e('Tree')
 				.at(x, y);
-			} else if (portal_space) {
+			} 
+			else if (portal_space) {
 			//paint in Portal
 				Crafty.e('Portal')
 				.at(x, y);
-			} else if (Math.random() < 0.06) {
+			}//end of else if
+			else if (Math.random() < 0.05) {
+				if (Crafty('EvilClone').length < Clones) 
+				{
+					Crafty.e('EvilClone')
+					.at(x, y);
+				}
+			}//end of else if
+			else if (Math.random() < 0.06) {
           // Place a bush entity at the current tile
 				Crafty.e('Bush')
 				.at(x, y);

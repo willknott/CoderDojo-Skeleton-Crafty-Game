@@ -113,7 +113,8 @@ Crafty.c('Prize', {
 		Crafty("TotalPoints").each(function () { 
 			this.text("Total score: " +TotalScore) });
 		this.destroy();
-			if (LevelScore == max_prize){ 
+			if (Crafty("Prize").length == 0)
+			{ 
 			Crafty("Portal").each(function () {
 				this.color('rgb(0, 0, 0)')
 				});
@@ -159,6 +160,9 @@ Crafty.c('Portal', {
 			Crafty("LevelPoints").each(function () {
 				this.destroy();
 				});
+			Crafty("Portal").each(function () {
+				this.destroy();
+				});
 				
 			Game.level();
 		}
@@ -179,6 +183,7 @@ Crafty.c('PlayerCharacter', {
 			//add method for when touching a prize
 			.onHit('Prize', this.touchPrize)
 			.onHit('Portal', this.levelUp)
+			.onHit('EvilClone', this.GameOver)
 			;
 
 	}, //add the comma, we're adding more
@@ -210,4 +215,45 @@ Crafty.c('PlayerCharacter', {
 		Portal.levelNext();
 	},
 
+
+	GameOver: function(data) {
+		EvilClone = data[0].obj;
+		EvilClone.EndGame();
+	},
+
+
+});
+
+// This is the evil Clone
+Crafty.c('EvilClone', {
+	init: function() {
+		this.requires('Actor, Fourway, Color, Collision, PlayerCharacter')
+			.fourway(4)
+			.color('rgb(256, 256, 256)')
+			.stopOnSolids()
+			.onHit('Prize', this.stopMovement)
+			.onHit('EvilClone', this.stopMovement)
+			.onHit('Portal', this.stopMovement)
+			;
+
+	}, 
+
+	EndGame: function(){
+		Crafty("LevelPoints").each(function () { 
+			this.text("Game Over")});
+
+			Crafty("Bush").each(function () {
+				this.destroy();
+				});
+			Crafty("EvilClone").each(function () {
+				this.destroy();
+				});
+			Crafty("Prize").each(function () {
+				this.destroy();
+				});
+			Crafty("PlayerCharacter").each(function () {
+				this.destroy();
+				});
+	},
+ 	
 });
