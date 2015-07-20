@@ -1,6 +1,7 @@
 //store the player's score
 var TotalScore = 0;
 var LevelScore = 0;
+var Level=1;
 
 // The Grid component allows an element to be located
 //  on a grid of tiles
@@ -57,9 +58,43 @@ Crafty.c('Bush', {
 });
 
 
+
+Crafty.c('LevelPoints', {
+	init: function() {
+		this.requires('DOM, 2D, Text');
+		this.textColor('#FFFFFF');
+		this.attr({x:20, y:0, w: 100, h: 20, points: 0 });
+		this.text("Level score: " +LevelScore);
+	},
+
+});
+
+
+Crafty.c('TotalPoints', {
+	init: function() {
+		this.requires('DOM, 2D, Text');
+		this.textColor('#FFFFFF');
+		this.attr({x:140, y:0, w: 100, h: 20, points: 0 });
+		this.text("Total score: " +TotalScore);
+	},
+
+});
+
+
+Crafty.c('CurrentLevel', {
+	init: function() {
+		this.requires('DOM, 2D, Text');
+		this.textColor('#FFFFFF');
+		this.attr({x:260, y:0, w: 100, h: 20, points: 0 });
+		this.text("Level " +Level);
+	},
+
+});
+
 Crafty.c('Prize', {
 	init: function() {
-		this.requires('Actor, Color');
+
+	this.requires('Actor, Color');
 		this.color('rgb(171, 125, 40)');
 	},
 
@@ -67,6 +102,10 @@ Crafty.c('Prize', {
 		//add a score
 		TotalScore = TotalScore +1;
 		LevelScore = LevelScore +1;
+		Crafty("LevelPoints").each(function () { 
+				this.text("Level score: " +LevelScore) });
+		Crafty("TotalPoints").each(function () { 
+				this.text("Total score: " +TotalScore) });
 		this.destroy();
 	}
 
@@ -78,12 +117,7 @@ Crafty.c('Portal', {
 		this.color('rgb(0, 0, 0)');
 	},
 
-	collect: function() {
-		//add a score
-		TotalScore = TotalScore +1;
-		LevelScore = LevelScore +1;
-		this.destroy();
-	}
+
 
 });
 
@@ -123,4 +157,3 @@ Crafty.c('PlayerCharacter', {
 		Prize.collect();
 	},
 });
-	

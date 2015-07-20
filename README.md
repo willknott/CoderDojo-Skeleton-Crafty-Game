@@ -15,3 +15,5 @@ Know bugs...
 - The playfield is randomly generated (not procedurally), this can mean that a prize is unobtainable, so a level cannot be completed. 
 
 Not the cleanest or most optimised code, but the average age is 11. Some things are supposed to be easy to read as opposed to perfect.
+
+Crafty 2010-2015. Crafty is distributed under the MIT or GPL license.

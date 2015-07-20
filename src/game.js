@@ -32,6 +32,7 @@ Game = {
 //	Crafty.e('Prize').at(10,10);
 	var max_prize = 8;
 	
+	
 	// Place a tree at every edge square on our grid of 16x16 tiles
 	//starting for loop 1
 	for (var x = 0; x < Game.map_grid.width; x++) {
@@ -71,6 +72,10 @@ Game = {
 			
 		} //end of loop 2
 	} // end of loop 1
+	
+	Crafty.e('LevelPoints');
+	Crafty.e('TotalPoints');
+	Crafty.e('CurrentLevel');
 	
   }// end of Start
 }//end of game
