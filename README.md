@@ -13,3 +13,5 @@ Know bugs...
 - When the total score exceeds 3 figures the scoreboard wraps on to the game play area (most likely fix is swapping the locations of the total score and the current level number.
 - The number of prizes is "softcoded" to 8 (as opposed to being set to the number of prizes displayed on the level
 - The playfield is randomly generated (not procedurally), this can mean that a prize is unobtainable, so a level cannot be completed. 
+
+Not the cleanest or most optimised code, but the average age is 11. Some things are supposed to be easy to read as opposed to perfect.

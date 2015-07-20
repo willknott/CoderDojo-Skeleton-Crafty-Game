@@ -51,3 +51,14 @@ Crafty.c('Bush', {
 		this.color('rgb(20, 185, 40)');
 	},
 });
+
+
+
+// This is the player-controlled character
+Crafty.c('PlayerCharacter', {
+	init: function() {
+		this.requires('Actor, Fourway, Color')
+			.fourway(4)
+			.color('rgb(75, 75, 75)');
+	}
+});
