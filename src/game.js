@@ -40,18 +40,28 @@ Game = {
  
 			if (at_edge) {
           // Place a tree(eventually) entity at the current tile
-			Crafty.e('2D, Canvas, Color')
-			.attr({
-				x: x * Game.map_grid.tile.width,
-				y: y * Game.map_grid.tile.height,
-				w: Game.map_grid.tile.width,
-				h: Game.map_grid.tile.height
-				}
-			)
-            .color('rgb(20, 125, 40)');
-        } //end of if
-		//more to go here
-	  } //end of loop 2
+				Crafty.e('2D, Canvas, Color')
+				.attr({
+					x: x * Game.map_grid.tile.width,
+					y: y * Game.map_grid.tile.height,
+					w: Game.map_grid.tile.width,
+					h: Game.map_grid.tile.height
+					}
+				)
+				.color('rgb(20, 125, 40)');
+			} else if (Math.random() < 0.06) {
+          // Place a bush entity at the current tile
+				Crafty.e('2D, Canvas, Color')
+				.attr({
+					x: x * Game.map_grid.tile.width,
+					y: y * Game.map_grid.tile.height,
+					w: Game.map_grid.tile.width,
+					h: Game.map_grid.tile.height
+					}
+				)
+				.color('rgb(20, 185, 40)');
+			}//end of else if
+		} //end of loop 2
 	} // end of loop 1
 	
   }// end of Start
