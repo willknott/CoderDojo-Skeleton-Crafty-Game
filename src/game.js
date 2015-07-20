@@ -1,3 +1,7 @@
+//setup global variables
+var Level=1;
+var max_prize = 8;
+
 Game = {
   // This defines our grid's size and the size of each of its tiles
 	map_grid: {
@@ -20,18 +24,21 @@ Game = {
 	height: function() {
 		return this.map_grid.height * this.map_grid.tile.height;
 	},
- 
-  // Initialize and start our game
+
 	start: function() {
     // Start crafty and set a background color so that we can see it's working
 		Crafty.init(Game.width(), Game.height());
-		Crafty.background('rgb(249, 223, 125)');
-	
+		
     // Player character, placed at 3, 3 on our grid
-    Crafty.e('PlayerCharacter').at(3, 3);
-//	Crafty.e('Prize').at(10,10);
-	var max_prize = 8;
+//    Crafty.e('PlayerCharacter').at(3, 3);
+		
+		
+		Game.level();
+	},
 	
+  // Initialize and start our game
+	level: function() {
+	Crafty.background('rgb(249, 223, 125)');
 	
 	// Place a tree at every edge square on our grid of 16x16 tiles
 	//starting for loop 1
@@ -73,9 +80,12 @@ Game = {
 		} //end of loop 2
 	} // end of loop 1
 	
+    // Player character, placed at 3, 3 on our grid
+    Crafty.e('PlayerCharacter').at(3, 3);
+
 	Crafty.e('LevelPoints');
 	Crafty.e('TotalPoints');
 	Crafty.e('CurrentLevel');
 	
-  }// end of Start
+  }// end of Start  
 }//end of game

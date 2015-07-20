@@ -1,7 +1,6 @@
 //store the player's score
 var TotalScore = 0;
 var LevelScore = 0;
-var Level=1;
 
 // The Grid component allows an element to be located
 //  on a grid of tiles
@@ -57,6 +56,13 @@ Crafty.c('Bush', {
 	},
 });
 
+Crafty.c('clean', {
+	init: function() {
+		this.requires('Actor, Color');
+		this.color('rgb(0, 1, 0)');
+	},
+});
+
 
 
 Crafty.c('LevelPoints', {
@@ -103,22 +109,62 @@ Crafty.c('Prize', {
 		TotalScore = TotalScore +1;
 		LevelScore = LevelScore +1;
 		Crafty("LevelPoints").each(function () { 
-				this.text("Level score: " +LevelScore) });
+			this.text("Level score: " +LevelScore) });
 		Crafty("TotalPoints").each(function () { 
-				this.text("Total score: " +TotalScore) });
+			this.text("Total score: " +TotalScore) });
 		this.destroy();
-	}
+			if (LevelScore == max_prize){ 
+			Crafty("Portal").each(function () {
+				this.color('rgb(0, 0, 0)')
+				});
+			}
+	},
+	
 
 });
 
 Crafty.c('Portal', {
 	init: function() {
 		this.requires('Actor, Color');
-		this.color('rgb(0, 0, 0)');
+		this.color('rgb(249, 223, 125)'); // same as background
 	},
+	
+	levelNext: function(){
+			if (LevelScore == max_prize){ 
+			Level = Level + 1;
+			LevelScore = 0;
+			Crafty("CurrentLevel").each(function () { 
+			this.text("Level " +Level)});
 
+			Crafty("Bush").each(function () {
+				this.destroy();
+				});
+			
+			Crafty("PlayerCharacter").each(function () {
+				this.destroy();
+				});
 
+			Crafty("Tree").each(function () {
+				this.destroy();
+				});
+			
+			Crafty("CurrentLevel").each(function () {
+				this.destroy();
+				});
+			
+			Crafty("TotalPoints").each(function () {
+				this.destroy();
+				});
+				
+			Crafty("LevelPoints").each(function () {
+				this.destroy();
+				});
+				
+			Game.level();
+		}
 
+	},
+ 
 });
 
 
@@ -132,7 +178,9 @@ Crafty.c('PlayerCharacter', {
 			.stopOnSolids()
 			//add method for when touching a prize
 			.onHit('Prize', this.touchPrize)
+			.onHit('Portal', this.levelUp)
 			;
+
 	}, //add the comma, we're adding more
 	
 	  // Registers a stop-movement function to be called when
@@ -156,4 +204,10 @@ Crafty.c('PlayerCharacter', {
 		Prize = data[0].obj;
 		Prize.collect();
 	},
+	
+	levelUp: function(data) {
+		Portal = data[0].obj;
+		Portal.levelNext();
+	},
+
 });
