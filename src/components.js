@@ -72,6 +72,21 @@ Crafty.c('Prize', {
 
 });
 
+Crafty.c('Portal', {
+	init: function() {
+		this.requires('Actor, Color');
+		this.color('rgb(0, 0, 0)');
+	},
+
+	collect: function() {
+		//add a score
+		TotalScore = TotalScore +1;
+		LevelScore = LevelScore +1;
+		this.destroy();
+	}
+
+});
+
 
 
 // This is the player-controlled character
@@ -102,7 +117,7 @@ Crafty.c('PlayerCharacter', {
 		}// end of if
 	},
 	
- // Respond to this touching the prize
+ // Respond to this player touching a prize
 	touchPrize: function(data) {
 		Prize = data[0].obj;
 		Prize.collect();

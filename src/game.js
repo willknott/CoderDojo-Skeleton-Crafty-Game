@@ -27,9 +27,10 @@ Game = {
 		Crafty.init(Game.width(), Game.height());
 		Crafty.background('rgb(249, 223, 125)');
 	
-    // Player character, placed at 5, 5 on our grid
-    Crafty.e('PlayerCharacter').at(5, 5);
-	Crafty.e('Prize').at(10,10);
+    // Player character, placed at 3, 3 on our grid
+    Crafty.e('PlayerCharacter').at(3, 3);
+//	Crafty.e('Prize').at(10,10);
+	var max_prize = 8;
 	
 	// Place a tree at every edge square on our grid of 16x16 tiles
 	//starting for loop 1
@@ -40,16 +41,34 @@ Game = {
 				x == Game.map_grid.width - 1 || 
 				y == 0 || 
 				y == Game.map_grid.height - 1;
+
+			var portal_space = 
+			(x <= 3 && y <=3) ||
+			(x >= Game.map_grid.width -4 && y >= Game.map_grid.height - 4) ||
+			(x <= 3 && y >= Game.map_grid.height - 4) ||
+			(x >= Game.map_grid.width -4 && y <=3);
  
 			if (at_edge) {
           // Place a tree(eventually) entity at the current tile
 				Crafty.e('Tree')
+				.at(x, y);
+			} else if (portal_space) {
+			//paint in Portal
+				Crafty.e('Portal')
 				.at(x, y);
 			} else if (Math.random() < 0.06) {
           // Place a bush entity at the current tile
 				Crafty.e('Bush')
 				.at(x, y);
 			}//end of else if
+			else if (Math.random() < 0.03) {
+				if (Crafty('Prize').length < max_prize) 
+					{
+					Crafty.e('Prize')
+					.at(x, y);
+					}
+			}//end of else if
+			
 		} //end of loop 2
 	} // end of loop 1
 	
