@@ -4,8 +4,8 @@ Game = {
 		width:  24,
 		height: 16,
 		tile: {
-		  width:  16,
-		  height: 16
+			width:  16,
+			height: 16
 		}
 	},
  
@@ -26,6 +26,33 @@ Game = {
     // Start crafty and set a background color so that we can see it's working
 		Crafty.init(Game.width(), Game.height());
 		Crafty.background('rgb(249, 223, 125)');
-	}// end of Start
 	
+
+	// Place a tree at every edge square on our grid of 16x16 tiles
+	//starting for loop 1
+	for (var x = 0; x < Game.map_grid.width; x++) {
+		//starting for loop 2
+		for (var y = 0; y < Game.map_grid.height; y++) {
+			var at_edge = x == 0 || 
+				x == Game.map_grid.width - 1 || 
+				y == 0 || 
+				y == Game.map_grid.height - 1;
+ 
+			if (at_edge) {
+          // Place a tree(eventually) entity at the current tile
+			Crafty.e('2D, Canvas, Color')
+			.attr({
+				x: x * Game.map_grid.tile.width,
+				y: y * Game.map_grid.tile.height,
+				w: Game.map_grid.tile.width,
+				h: Game.map_grid.tile.height
+				}
+			)
+            .color('rgb(20, 125, 40)');
+        } //end of if
+		//more to go here
+	  } //end of loop 2
+	} // end of loop 1
+	
+  }// end of Start
 }//end of game
